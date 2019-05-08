@@ -1,2 +1,2 @@
-[run]
+[report]
 omit = /usr/local/lib/python3.6/_bootlocale.py
