@@ -6,6 +6,6 @@ class TestMain(TestCase):
     def test_gen_val(self):
         self.assertEqual(get_val(), 1)
 
-    @skip('SKIP')
+    #@skip('SKIP')
     def test_gen_val_fail(self):
         self.assertEqual(get_val(), 2)
