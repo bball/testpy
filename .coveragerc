@@ -1,4 +1,5 @@
 [run]
+source = main
 omit =
 	_*.py
 	_bootlocale.py
