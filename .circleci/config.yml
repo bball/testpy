@@ -32,4 +32,6 @@ jobs:
       - store_artifacts:
           path: test_results
       - store_artifacts:
+          path: Pipfile.lock
+      - store_artifacts:
           path: htmlcov
