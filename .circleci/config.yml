@@ -12,7 +12,6 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:  # ensure this step occurs *before* installing dependencies
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-      #- run: sudo pip install nose coverage; echo $HOME; mkdir test_results; mkdir test_results/all; mkdir test_results/coverage
       - run: sudo pip install pipenv; pipenv install; mkdir test_results; mkdir test_results/all; mkdir test_results/coverage
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
@@ -20,6 +19,13 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.6/site-packages"
+  test:
+    working_directory: ~/tst_proj
+    docker:
+      - image: circleci/python:3.6.4
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
       - run:
           name: Run Tests
           command: pipenv run nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
@@ -35,3 +41,9 @@ jobs:
           path: Pipfile.lock
       - store_artifacts:
           path: htmlcov
+workflows:
+  version: 2.1
+  build_and_test:
+      jobs:
+        - build
+        - test
