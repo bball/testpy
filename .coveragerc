@@ -1,3 +1,5 @@
 [run]
 omit =
 	_*.py
+[html]
+title = 'Testing Title'
