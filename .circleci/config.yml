@@ -12,6 +12,7 @@ jobs:
           command: |
             ls
             nosetests --with-coverage
+            ls
             coverage report
             coverage html
             ls
