@@ -1,15 +1,2 @@
 [run]
-source = main
-omit =
-	_*.py
-	_bootlocale.py
-	__*.py
-	/usr/local/lib/python3.6/_bootlocale.py
-[report]
-omit =
-	_*.py
-	_bootlocale.py
-	__*.py
-	/usr/local/lib/python3.6/_bootlocale.py
-[html]
-title = 'Testing Title'
+omit = /usr/local/lib/python3.6/_bootlocale.py
