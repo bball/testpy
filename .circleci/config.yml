@@ -6,8 +6,6 @@ jobs:
       - image: circleci/python:3.6.4
     steps:
       - checkout
-      #- run: sudo chown -R circleci:circleci /usr/local/bin
-      #- run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:  # ensure this step occurs *before* installing dependencies
           key: deps1.0-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
@@ -27,16 +25,10 @@ jobs:
           command: |
             . venv/bin/activate
             nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-html --cover-html-dir test_results/coverage
-      - run:
-          name: Coverage Report
-          #when: always
-          command: coverage html
       - store_test_results:
           path: test_results
       - store_artifacts:
           path: test_results
-      - store_artifacts:
-          path: htmlcov
 workflows:
   version: 2.1
   build_and_test:
