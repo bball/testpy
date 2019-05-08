@@ -1,11 +1,16 @@
 version: 2.1
-jobs:
-  build:
-    working_directory: ~/tst_proj
+
+executors:
+  my-executor:
     docker:
       - image: circleci/python:3.6.4
         environment:
           PIPENV_VENV_IN_PROJECT: true
+    working_directory: ~/tst_proj
+
+jobs:
+  build:
+    executor: my-executor
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
@@ -20,11 +25,7 @@ jobs:
             - "/usr/local/bin"
             - "/usr/local/lib/python3.6/site-packages"
   test:
-    working_directory: ~/tst_proj
-    docker:
-      - image: circleci/python:3.6.4
-        environment:
-          PIPENV_VENV_IN_PROJECT: true
+    executor: my-executor
     steps:
       - run:
           name: Run Tests
