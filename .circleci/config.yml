@@ -12,7 +12,7 @@ jobs:
           halt_build_on_fail: false
           command: |
             ls -al
-            nosetests --with-coverage --with-xunit test_results/all/nosetests.xml
+            nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml
       - run:
           name: Coverage Report
           command: |
