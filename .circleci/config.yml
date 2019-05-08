@@ -14,6 +14,12 @@ jobs:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       #- run: sudo pip install nose coverage; echo $HOME; mkdir test_results; mkdir test_results/all; mkdir test_results/coverage
       - run: sudo pip install pipenv; pipenv install; mkdir test_results; mkdir test_results/all; mkdir test_results/coverage
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"
       - run:
           name: Run Tests
           command: pipenv run nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
@@ -27,9 +33,3 @@ jobs:
           path: test_results
       - store_artifacts:
           path: htmlcov
-      - save_cache:
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
