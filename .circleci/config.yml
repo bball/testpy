@@ -13,7 +13,7 @@ jobs:
       - restore_cache:  # ensure this step occurs *before* installing dependencies
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       #- run: sudo pip install nose coverage; echo $HOME; mkdir test_results; mkdir test_results/all; mkdir test_results/coverage
-      - run: sudo pip install pipenv; pipenv install
+      - run: sudo pip install pipenv; pipenv install; mkdir test_results; mkdir test_results/all; mkdir test_results/coverage
       - run:
           name: Run Tests
           command: pipenv run nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
