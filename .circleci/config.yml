@@ -24,7 +24,7 @@ jobs:
             - "venv"
       - run:
           name: Run Tests
-          command: pipenv run nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
+          command: nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
       - run:
           name: Coverage Report
           when: always
