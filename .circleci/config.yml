@@ -10,6 +10,7 @@ jobs:
           key: deps1.0-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           command: |
+            sudo apt-get intsall mlocate
             python -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
