@@ -9,17 +9,11 @@ jobs:
       - run: sudo pip install nose coverage; echo $HOME; mkdir test_results; mkdir test_results/all
       - run:
           name: Run Tests
-          command: |
-            ls -al
-            nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml
+          command: nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/all/coverage.xml
       - run:
           name: Coverage Report
-          when: always
-          command: |
-            ls -al
-            coverage report
-            coverage html
-            ls -al
+          #when: always
+          command: coverage html
       - store_test_results:
           path: test_results
       - store_artifacts:
