@@ -10,11 +10,11 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            set +e
             ls -al
             nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml
       - run:
           name: Coverage Report
+          when: always
           command: |
             ls -al
             coverage report
