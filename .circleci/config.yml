@@ -9,6 +9,7 @@ jobs:
       - run: sudo pip install nose coverage; echo $HOME
       - run:
           name: Run Tests
+          halt_build_on_fail: false
           command: |
             ls -al
             nosetests --with-coverage
