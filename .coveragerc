@@ -3,5 +3,10 @@ omit =
 	_*.py
 	_bootlocale.py
 	__*.py
+[report]
+omit =
+	_*.py
+	_bootlocale.py
+	__*.py
 [html]
 title = 'Testing Title'
