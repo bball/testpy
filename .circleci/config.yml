@@ -12,6 +12,9 @@ jobs:
           command: |
             ls -al
             nosetests --with-coverage
+      - run:
+          name: Coverage Report
+          command: |
             ls -al
             coverage report
             coverage html
