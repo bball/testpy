@@ -1,32 +1,27 @@
 version: 2.1
-
-executors:
-  my-executor:
+jobs:
+  build-and-test:
+    working_directory: ~/tst_proj
     docker:
       - image: circleci/python:3.6.4
-        environment:
-          PIPENV_VENV_IN_PROJECT: true
-    working_directory: ~/tst_proj
-
-jobs:
-  build:
-    executor: my-executor
     steps:
       - checkout
-      - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      #- run: sudo chown -R circleci:circleci /usr/local/bin
+      #- run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:  # ensure this step occurs *before* installing dependencies
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-      - run: sudo pip install pipenv; pipenv install; mkdir test_results; mkdir test_results/all; mkdir test_results/coverage
+          key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+            mkdir test_results
+            mkdir test_results/all
+            mkdir test_results/coverage
       - save_cache:
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
-  test:
-    executor: my-executor
-    steps:
+            - "venv"
       - run:
           name: Run Tests
           command: pipenv run nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
@@ -39,12 +34,9 @@ jobs:
       - store_artifacts:
           path: test_results
       - store_artifacts:
-          path: Pipfile.lock
-      - store_artifacts:
           path: htmlcov
 workflows:
   version: 2.1
   build_and_test:
       jobs:
-        - build
-        - test
+        - build-and-test
