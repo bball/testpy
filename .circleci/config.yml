@@ -9,9 +9,6 @@ jobs:
       - run: sudo pip install nose coverage
       - run:
         name: Run Tests
-        command: |
-          nosetests --with-coverage
-          coverage report
-          coverage html
+        command: nosetests --with-coverage; coverage report; coverage html
       - store_artifacts:
         path: htmlcov
