@@ -24,7 +24,9 @@ jobs:
             - "venv"
       - run:
           name: Run Tests
-          command: nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
+          command: |
+            . venv/bin/activate
+            nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
       - run:
           name: Coverage Report
           when: always
