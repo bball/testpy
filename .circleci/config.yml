@@ -6,11 +6,12 @@ jobs:
       - image: circleci/python:3.6.4
     steps:
       - checkout
-      - run: sudo pip install nose coverage
+      - run: sudo pip install nose coverage; echo $HOME
       - run:
           name: Run Tests
           command: |
             nosetests --with-coverage
+            coverage html
             coverage html
       - store_artifacts:
           path: htmlcov
