@@ -6,13 +6,13 @@ jobs:
       - image: circleci/python:3.6.4
     steps:
       - checkout
-      - run: sudo pip install nose coverage; echo $HOME
+      - run: sudo pip install nose coverage; echo $HOME; mkdir test_results
       - run:
           name: Run Tests
           halt_build_on_fail: false
           command: |
             ls -al
-            nosetests --with-coverage
+            nosetests --with-coverage --with-xunit test_results/nosetests.xml
       - run:
           name: Coverage Report
           command: |
