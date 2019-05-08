@@ -11,7 +11,6 @@ jobs:
           name: Run Tests
           command: |
             nosetests --with-coverage
-            coverage report
             coverage html
       - store_artifacts:
           path: htmlcov
