@@ -12,8 +12,8 @@ jobs:
           command: nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
       - run:
           name: Coverage Report
-          #when: always
-          command: coverage html
+          when: always
+          command: coverage html; ls -al test_results; ls -al test_results/coverage
       - store_test_results:
           path: test_results
       - store_artifacts:
