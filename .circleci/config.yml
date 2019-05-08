@@ -6,17 +6,26 @@ jobs:
       - image: circleci/python:3.6.4
     steps:
       - checkout
+      - run sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - restore_cache:  # ensure this step occurs *before* installing dependencies
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run: sudo pip install nose coverage; echo $HOME; mkdir test_results; mkdir test_results/all; mkdir test_results/coverage
       - run:
           name: Run Tests
           command: nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-xml --cover-xml-file test_results/coverage/coverage.xml
       - run:
           name: Coverage Report
-          when: always
-          command: coverage html; ls -al test_results; ls -al test_results/coverage
+          #when: always
+          command: coverage html
       - store_test_results:
           path: test_results
       - store_artifacts:
           path: test_results
       - store_artifacts:
           path: htmlcov
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"
