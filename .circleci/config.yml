@@ -1,0 +1,9 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/tst_proj
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - checkout
+      - run: nosetests --with-coverage
