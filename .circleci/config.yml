@@ -25,6 +25,7 @@ jobs:
           command: |
             . venv/bin/activate
             ls -al
+            locate _bootlocale.py
             nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml --cover-html --cover-html-dir test_results/coverage
             ls -al
       - store_test_results:
