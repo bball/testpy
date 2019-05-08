@@ -10,11 +10,11 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            ls
+            ls -al
             nosetests --with-coverage
-            ls
+            ls -al
             coverage report
             coverage html
-            ls
+            ls -al
       - store_artifacts:
           path: htmlcov
