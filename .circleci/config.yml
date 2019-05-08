@@ -9,8 +9,8 @@ jobs:
       - run: sudo pip install nose coverage; echo $HOME; mkdir test_results; mkdir test_results/all
       - run:
           name: Run Tests
-          halt_build_on_fail: false
           command: |
+            set +e
             ls -al
             nosetests --with-coverage --with-xunit --xunit-file test_results/all/nosetests.xml
       - run:
