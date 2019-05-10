@@ -22,9 +22,6 @@ async def main(uname: str, key: str):
     async with aiohttp.ClientSession() as session:
         auth = aiohttp.BasicAuth(uname, key)
         commits = await request(session, 'GET', 'https://api.github.com/repos/bball/testpy/commits/master', auth)
-        pprint.pprint(commits)
-        tags = await request(session, 'GET', 'https://api.github.com/repos/bball/testpy/tags', auth)
-        pprint.pprint(tags)
         data = {'tag': f"TOXIC-{commits['sha'][:6]}",
                 'message': 'TEST MSG',
                 'object': commits['sha'],
