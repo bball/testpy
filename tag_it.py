@@ -40,7 +40,8 @@ async def main(uname: str, key: str, is_toxic: bool, test_file: str):
     async with aiohttp.ClientSession() as session:
         auth = aiohttp.BasicAuth(uname, key)
         commits = await request(session, 'GET', 'https://api.github.com/repos/bball/testpy/commits/master', auth)
-        tag_name = f"TOXIC-{commits['sha'][:6]}" if is_toxic else "v0.2"
+        cs = commits['sha'][:6]
+        tag_name = f"TOXIC-{cs}" if is_toxic else f"v0.2-{cs}"
         data = {'tag': tag_name,
                 'message': msg,
                 'object': commits['sha'],
