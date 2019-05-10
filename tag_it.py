@@ -18,7 +18,7 @@ async def request(session, method, url, auth, data=None):
 
 
 async def main(uname: str, key: str):
-    print(f'Running with uname {uname}, key {key}')
+    print(f'Running with uname {uname}, key ******')
     async with aiohttp.ClientSession() as session:
         auth = aiohttp.BasicAuth(uname, key)
         commits = await request(session, 'GET', 'https://api.github.com/repos/bball/testpy/commits/master', auth)
